@@ -1,4 +1,4 @@
-experiment,day,cellcount,viability,sg,plato,pH,alcohol
+product,day,cellcount,viability,sg,plato,pH,alcohol
 ME Hard Seltzer HG,0,8400000,,1.09877,23.48496271,,0
 ME Hard Seltzer HG,1,6450000,0.79,1.09827,23.3761805,6.11,0.0076
 ME Hard Seltzer HG,2,10900000,0.93,1.06598,16.13360598,4.67,0.035
