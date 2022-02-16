@@ -15,6 +15,9 @@ plato16_comp <- plato16 %>%
 plato16_MEHSHG <- plato16 %>% 
   filter(!experiment %in% c("A","B","C","Hybrid","ME Hard Selzter HG Low Dose"))
 
+# Colorblind-friendly palette with black
+cbPalette <- c("#000000", "#E69F00", "#56B4E9", "#009E73", "#F0E442", "#0072B2", "#D55E00", "#CC79A7")
+
 # Plot looking at alcohol production between our product and competitors at 24 Plato over time
 ggplot(data=plato24,aes(x=day,y=alcohol))+
   geom_smooth(data=plato24_MEHSHG,aes(color="ME Hard Seltzer HG"))+
@@ -23,7 +26,8 @@ ggplot(data=plato24,aes(x=day,y=alcohol))+
        x="Days",
        subtitle="Alcohol",
        y="Alcohol (%)",
-       colour="Product")
+       colour="Product")+
+  scale_color_manual(values=cbPalette)
 
 # Plot looking at alcohol production between our product and competitors at 16 Plato over time
 ggplot(data=plato16,aes(x=day,y=alcohol))+
@@ -33,4 +37,5 @@ ggplot(data=plato16,aes(x=day,y=alcohol))+
        x="Days",
        subtitle="Alcohol",
        y="Alcohol (%)",
-       colour="Product")
+       colour="Product")+
+  scale_color_manual(values=cbPalette)
