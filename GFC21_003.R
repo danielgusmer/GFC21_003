@@ -52,3 +52,38 @@ ggplot(data=plato16,aes(x=day,y=alcohol*100,color=product,linetype=product))+
   annotate(geom="text",x=9.15,y=9,label="to closest competitor")
 
 ggsave("16p_compreview_alcohol.png",width=8.5,height=5)
+
+# Loading in the csv file containing Jasmin's 28P benchtop data
+plato28 <- read_csv("GFC21_003_28Plato_Data.csv")
+
+# Plot looking at alcohol production at 16, 24, and 28P
+ggplot(data=plato28,aes(x=day,y=alcohol*100))+
+  geom_smooth(data=plato16_MEHSHG,aes(color="16°Plato"))+
+  geom_smooth(data=plato24_MEHSHG,aes(color="24°Plato"))+
+  geom_smooth(data=plato28,aes(color="28°Plato"),se=F)+
+  labs(title="Fermentation Curve",
+       subtitle="Alcohol",
+       x="Days",
+       y="Alcohol (%)",
+       colour="Degrees Plato")+
+  scale_color_manual(name="Degrees Plato",
+                     breaks=c("16°Plato","24°Plato","28°Plato"),
+                     values=cbPalette)
+
+ggsave("pds_fermcurve_alcohol.png",width=8.5,height=5)
+
+# Plot looking at plato drop at 16, 24, and 28P
+ggplot(data=plato28,aes(x=day,y=plato))+
+  geom_smooth(data=plato16_MEHSHG,aes(color="16°Plato"))+
+  geom_smooth(data=plato24_MEHSHG,aes(color="24°Plato"))+
+  geom_smooth(data=plato28,aes(color="28°Plato"),se=F)+
+  labs(title="Fermentation Curve",
+       subtitle="Plato",
+       x="Days",
+       y="Alcohol (%)",
+       colour="Degrees Plato",)+
+  scale_color_manual(name="Degrees Plato",
+                     breaks=c("16°Plato","24°Plato","28°Plato"),
+                     values=cbPalette)
+
+ggsave("pds_fermcurve_plato.png",width=8.5,height=5)
