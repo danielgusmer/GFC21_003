@@ -1,5 +1,7 @@
 install.packages("tidyverse")
 library(tidyverse)
+install.packages("rmarkdown")
+library(rmarkdown)
 
 # Loading in the csv files containing the data
 plato24 <- read_csv("GFC21_003_24Plato_Data.csv")
