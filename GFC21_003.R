@@ -70,7 +70,8 @@ ggplot(data=plato28,aes(x=day,y=alcohol*100))+
        colour="Degrees Plato")+
   scale_color_manual(name="Degrees Plato",
                      breaks=c("16°Plato","24°Plato","28°Plato"),
-                     values=cbPalette)
+                     values=cbPalette)+
+  scale_y_continuous(breaks=seq(0,21,2))
 
 ggsave("pds_fermcurve_alcohol.png",width=8.5,height=5)
 
@@ -82,7 +83,7 @@ ggplot(data=plato28,aes(x=day,y=plato))+
   labs(title="Fermentation Curve",
        subtitle="Plato",
        x="Days",
-       y="Alcohol (%)",
+       y="°Plato",
        colour="Degrees Plato",)+
   scale_color_manual(name="Degrees Plato",
                      breaks=c("16°Plato","24°Plato","28°Plato"),
