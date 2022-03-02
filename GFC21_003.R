@@ -94,7 +94,7 @@ ggsave("pds_fermcurve_plato.png",width=8.5,height=5)
 # Loading in csv file containing data from Viva Toxicity study
 toxicity <- read_csv("GFC21_003_Round3.csv")
 
-# Plot looking at toxicity runs
+# Plot looking at toxicity runs alcohol production
 ggplot(data=toxicity,mapping=aes(x=Day,y=Alcohol*100))+
   geom_point(aes(color=as.factor(Run)))+
   geom_line(aes(color=as.factor(Run)),size=.75)+
@@ -106,3 +106,16 @@ ggplot(data=toxicity,mapping=aes(x=Day,y=Alcohol*100))+
        colour="Run")
 
 ggsave("toxicity.png",width=8.5,height=5)
+
+# Plot looking at toxicity runs plato reduction
+ggplot(data=toxicity,mapping=aes(x=Day,y=Plato))+
+  geom_point(aes(color=as.factor(Run)))+
+  geom_line(aes(color=as.factor(Run)),size=.75)+
+  scale_color_manual(values=cbPalette)+
+  labs(title="Fermentation Curve - Viva Toxicity Study",
+       subtitle="Plato",
+       x="Days",
+       y="°Plato",
+       colour="Run")
+
+ggsave("toxicity_plato.png",width=8.5,height=5)
