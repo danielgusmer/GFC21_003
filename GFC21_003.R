@@ -94,48 +94,15 @@ ggsave("pds_fermcurve_plato.png",width=8.5,height=5)
 # Loading in csv file containing data from Viva Toxicity study
 toxicity <- read_csv("GFC21_003_Round3.csv")
 
-# Filtering toxicity data into individual runs
-r33 <- toxicity %>% 
-  filter(Run %in% c("33"))
-r34 <- toxicity %>% 
-  filter(Run %in% c("34"))
-r35 <- toxicity %>% 
-  filter(Run %in% c("35"))
-r36 <- toxicity %>%
-  filter(Run %in% c("36"))
-r37 <- toxicity %>%
-  filter(Run %in% c("37"))
-r38 <- toxicity %>% 
-  filter(Run %in% c("38"))
-r39 <- toxicity %>% 
-  filter(Run %in% c("39"))
-r40 <- toxicity %>% 
-  filter(Run %in% c("40"))
-
 # Plot looking at toxicity runs
-ggplot(data=toxicity,aes(x=Day,y=Alcohol*100))+
-  geom_line(data=r33,aes(color="24°Plato"),size=.75)+
-  geom_line(data=r34,aes(color="25°Plato"),size=.75)+
-  geom_line(data=r35,aes(color="26°Plato"),size=.75)+
-  geom_line(data=r36,aes(color="27°Plato"),size=.75)+
-  geom_line(data=r37,aes(color="28°Plato"),size=.75)+
-  geom_line(data=r38,aes(color="29°Plato"),size=.75)+
-  geom_line(data=r39,aes(color="30°Plato"),size=.75)+
-  geom_line(data=r40,aes(color="31°Plato"),size=.75)+
-  geom_point(data=r33,aes(color="24°Plato"))+
-  geom_point(data=r34,aes(color="25°Plato"))+
-  geom_point(data=r35,aes(color="26°Plato"))+
-  geom_point(data=r36,aes(color="27°Plato"))+
-  geom_point(data=r37,aes(color="28°Plato"))+
-  geom_point(data=r38,aes(color="29°Plato"))+
-  geom_point(data=r39,aes(color="30°Plato"))+
-  geom_point(data=r40,aes(color="31°Plato"))+
-  labs(title="Fermentation Curve",
+ggplot(data=toxicity,mapping=aes(x=Day,y=Alcohol*100))+
+  geom_point(aes(color=as.factor(Run)))+
+  geom_line(aes(color=as.factor(Run)),size=.75)+
+  scale_color_manual(values=cbPalette)+
+  labs(title="Fermentation Curve - Viva Toxicity Study",
        subtitle="Alcohol",
        x="Days",
        y="Alcohol (%)",
-       colour="Run")+
-  scale_y_continuous(breaks=seq(0,19,2))+
-  scale_color_manual(values=cbPalette)
+       colour="Run")
 
 ggsave("toxicity.png",width=8.5,height=5)
