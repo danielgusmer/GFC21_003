@@ -103,7 +103,8 @@ ggplot(data=toxicity,mapping=aes(x=Day,y=Alcohol*100))+
        subtitle="Alcohol",
        x="Days",
        y="Alcohol (%)",
-       colour="Run")
+       colour="Run")+
+  scale_y_continuous(breaks=seq(0,21,2))
 
 ggsave("toxicity.png",width=8.5,height=5)
 
