@@ -98,7 +98,7 @@ toxicity <- read_csv("GFC21_003_Round3.csv")
 ggplot(data=toxicity,mapping=aes(x=Day,y=Alcohol*100))+
   geom_point(aes(color=as.factor(Run)))+
   geom_line(aes(color=as.factor(Run)),size=.75)+
-  scale_color_manual(values=cbPalette)+
+  scale_color_manual(labels=c("24°P","25°P","26°P","27°P","28°P","29°P","30°P","31°P"),values=cbPalette)+
   labs(title="Fermentation Curve - Viva Toxicity Study",
        subtitle="Alcohol",
        x="Days",
@@ -111,7 +111,7 @@ ggsave("toxicity.png",width=8.5,height=5)
 ggplot(data=toxicity,mapping=aes(x=Day,y=Plato))+
   geom_point(aes(color=as.factor(Run)))+
   geom_line(aes(color=as.factor(Run)),size=.75)+
-  scale_color_manual(values=cbPalette)+
+  scale_color_manual(labels=c("24°P","25°P","26°P","27°P","28°P","29°P","30°P","31°P"),values=cbPalette)+
   labs(title="Fermentation Curve - Viva Toxicity Study",
        subtitle="Plato",
        x="Days",
