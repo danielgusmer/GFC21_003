@@ -120,3 +120,14 @@ ggplot(data=toxicity,mapping=aes(x=Day,y=Plato))+
        colour="Run")
 
 ggsave("toxicity_plato.png",width=8.5,height=5)
+
+# Quick plot made at request of Nate for 3/11 meeting
+ggplot(data=plato24_MEHSHG,mapping=aes(x=day,y=alcohol*100))+
+  geom_smooth()+
+  labs(title="24°Plato Fermentation Curve",
+       subtitle="Alcohol",
+       x="Days",
+       y="Alcohol (%)")+
+  scale_x_continuous(breaks=seq(0,10,1))
+
+ggsave("24P_alcohol.png",width=8.5,height=5)
