@@ -2,6 +2,8 @@ install.packages("tidyverse")
 library(tidyverse)
 install.packages("rmarkdown")
 library(rmarkdown)
+install.packages("ggrepel")
+library(ggrepel)
 
 # Loading in the csv files containing the data
 plato24 <- read_csv("GFC21_003_24Plato_Data.csv")
@@ -93,6 +95,9 @@ ggsave("pds_fermcurve_plato.png",width=8.5,height=5)
 
 # Loading in csv file containing data from Viva Toxicity study
 toxicity <- read_csv("GFC21_003_Round3.csv")
+toxic_dataend <- toxicity %>% 
+  group_by(Run) %>% 
+  top_n(1,Day)
 
 # Plot looking at toxicity runs alcohol production
 ggplot(data=toxicity,mapping=aes(x=Day,y=Alcohol*100))+
@@ -104,9 +109,10 @@ ggplot(data=toxicity,mapping=aes(x=Day,y=Alcohol*100))+
        x="Days",
        y="Alcohol (%)",
        colour="Run")+
-  scale_y_continuous(breaks=seq(0,21,2))
+  scale_y_continuous(breaks=seq(0,21,2))+
+  geom_text_repel(aes(label=Alcohol*100),data=toxic_dataend,size=3)
 
-ggsave("toxicity.png",width=8.5,height=5)
+ggsave("toxicity_alcohol.png",width=8.5,height=5)
 
 # Plot looking at toxicity runs plato reduction
 ggplot(data=toxicity,mapping=aes(x=Day,y=Plato))+
@@ -131,3 +137,40 @@ ggplot(data=plato24_MEHSHG,mapping=aes(x=day,y=alcohol*100))+
   scale_x_continuous(breaks=seq(0,10,1))
 
 ggsave("24P_alcohol.png",width=8.5,height=5)
+
+#filtering data to only contain 24-26 Plato Toxicity Runs
+toxic_low <- toxicity %>% 
+  filter(Run %in% c("33","34","35"))
+toxic_low_dataend <- toxic_low %>% 
+  group_by(Run) %>% 
+  top_n(1,Day)
+
+# Plot looking at alcohol production in 24-26 plato
+ggplot(data=toxic_low,mapping=aes(x=Day,y=Alcohol*100))+
+  geom_point(aes(color=as.factor(Run)))+
+  geom_line(aes(color=as.factor(Run)),size=.75)+
+  scale_color_manual(labels=c("24°P","25°P","26°P"),values=cbPalette)+
+  labs(title="Fermentation Curve - Viva Toxicity Study",
+       subtitle="Alcohol - 24 to 26°Plato",
+       x="Days",
+       y="Alcohol (%)",
+       colour="Run")+
+  scale_y_continuous(breaks=seq(0,21,2))+
+  geom_text_repel(aes(label=Alcohol*100),data=toxic_low_dataend,size=3)
+
+ggsave("toxic_low_alcohol.png",width=8.5,height=5)
+
+# Plot looking at plato reduction in 24-26 plato
+ggplot(data=toxic_low,mapping=aes(x=Day,y=Plato))+
+  geom_point(aes(color=as.factor(Run)))+
+  geom_line(aes(color=as.factor(Run)),size=.75)+
+  scale_color_manual(labels=c("24°P","25°P","26°P"),values=cbPalette)+
+  labs(title="Fermentation Curve - Viva Toxicity Study",
+       subtitle="Plato - 24 to 26°Plato",
+       x="Days",
+       y="°Plato",
+       colour="Run")+
+  scale_y_continuous(breaks=seq(0,27,3))+
+  geom_text_repel(aes(label=Plato),data=toxic_low_dataend,size=3)
+
+ggsave("toxic_low_plato.png",width=8.5,height=5)
