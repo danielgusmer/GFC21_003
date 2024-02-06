@@ -138,6 +138,15 @@ ggplot(data=plato24_MEHSHG,mapping=aes(x=day,y=alcohol*100))+
 
 ggsave("24P_alcohol.png",width=8.5,height=5)
 
+# 24P plot for sugar degradation
+ggplot(data=plato24_MEHSHG,mapping=aes(x=day,y=plato))+
+    geom_smooth()+
+    labs(title="24°Plato Fermentation Curve",
+         subtitle="Plato",
+         x="Days",
+         y="Plato")+
+    scale_x_continuous(breaks=seq(0,10,1))
+
 #filtering data to only contain 24-26 Plato Toxicity Runs
 toxic_low <- toxicity %>% 
     filter(Run %in% c("33","34","35"))
